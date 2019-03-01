@@ -28,7 +28,7 @@ const routes = [
       {
         path:'productList',
         name:'productList',
-        component:productList,
+        component:resolve=>require(['@/components/productList'],resolve),
         meta: { requiresAuth: true },
         children:[
           
@@ -37,69 +37,74 @@ const routes = [
       {
         path:'goodsList',
         name:'goodsList',
-        component:goodsList,
+        component:resolve=>require(['@/components/goodsList'],resolve),
         meta: { requiresAuth: true },
       },
       {
         path:'toUser',
         name:'toUser',
-        component:toUser,
+        component:resolve=>require(['@/components/toUser'],resolve),
         meta: { requiresAuth: true },
       },
       {
         path:'addUser',
         name:'addUser',
-        component:addUser,
+        component:resolve=>require(['@/components/addUser'],resolve),
         meta: { requiresAuth: true },
       },
       {
         path:'updateMm',
         name:'updateMm',
-        component:updateMm,
+        component:resolve=>require(['@/components/updateMm'],resolve),
         meta: { requiresAuth: true },
       },
       {
         path:'updateZl',
         name:'updateZl',
-        component:updateZl,
+        component:resolve=>require(['@/components/updateZl'],resolve),
         meta: { requiresAuth: true },
       },
       {
         path:'editUser',
         name:'editUser',
-        component:editUser,
+        component:resolve=>require(['@/components/editUser'],resolve),
         meta: { requiresAuth: true },
       },
       {
         path:'/addProductList',
         name:'addProductList',
-        component:addProductList,
+        component:resolve=>require(['@/components/addProductList'],resolve),
         meta: { requiresAuth: true },
       },
       {
         path:'/editProductList',
         name:'editProductList',
-        component:editProductList,
+        component:resolve=>require(['@/components/editProductList'],resolve),
         meta: { requiresAuth: true },
       },
       {
         path:'/addGoodsList',
         name:'addGoodsList',
-        component:addGoodsList,
+        component:resolve=>require(['@/components/addGoodsList'],resolve),
         meta: { requiresAuth: true },
       },
       {
         path:'/editGoodsList',
         name:'editGoodsList',
-        component:editGoodsList,
+        component:resolve=>require(['@/components/editGoodsList'],resolve),
         meta: { requiresAuth: true },
+      },
+      {
+        path:'/dingdangl',
+        name:'dingdangl',
+        component:resolve=>require(['@/components/dingdangl'],resolve),
       }
     ]
   },
   {
     path:'/login',
     name:'Login',
-    component:Login,
+    component:resolve=>require(['@/components/Login'],resolve),
   },
   {
     path:'/',
