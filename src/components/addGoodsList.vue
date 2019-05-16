@@ -46,12 +46,12 @@ export default {
     },
     methods: {
         sbmit() {
-            var ID = this.productList.ID;
+            /*  var ID = this.productList.ID;
             var name = this.productList.name;
             var list = this.productList.list;
             var dateTime = this.productList.dateTime.toLocaleDateString();
             var price = this.productList.price;
-            console.log(ID, name, list, price, dateTime);
+            // console.log(ID, name, list, price, dateTime);
             if (
                 ID != "" &&
                 name != "" &&
@@ -77,16 +77,42 @@ export default {
                     });
             } else {
                 return false;
+            } */
+            this.productList = this.productList.dateTime.toLocaleDateString();
+            for (let key in this.productList) {
+                if (this.productList[key]) {
+                    this.$axios
+                        .post("/admin/product/addGoodsList", {
+                            goodsListInfo: {
+                                ID,
+                                name,
+                                list,
+                                price,
+                                dateTime
+                            }
+                        })
+                        .then(res => {
+                            if (res.data === "yes") {
+                                this.$message.success("数据插入成功");
+                                this.$router.push({ name: "goodsList" });
+                            }
+                        });
+                } else {
+                    return false;
+                }
             }
         },
         resetForm() {
-            this.productList = {
+            /*  this.productList = {
                 ID: "",
                 name: "",
                 list: "",
                 price: "",
                 dateTime: ""
-            };
+            }; */
+            for (let key in this.productList) {
+                this.productList[key] = "";
+            }
         }
     }
 };
