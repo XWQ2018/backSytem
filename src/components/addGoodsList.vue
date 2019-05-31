@@ -46,79 +46,37 @@ export default {
     },
     methods: {
         sbmit() {
-            /*  var ID = this.productList.ID;
-            var name = this.productList.name;
-            var list = this.productList.list;
-            var dateTime = this.productList.dateTime.toLocaleDateString();
-            var price = this.productList.price;
-            // console.log(ID, name, list, price, dateTime);
-            if (
-                ID != "" &&
-                name != "" &&
-                list != "" &&
-                dateTime != "" &&
-                price != ""
-            ) {
-                this.$axios
-                    .post("/admin/product/addGoodsList", {
-                        goodsListInfo: {
-                            ID,
-                            name,
-                            list,
-                            price,
-                            dateTime
-                        }
-                    })
-                    .then(res => {
-                        if (res.data === "yes") {
-                            this.$message.success("数据插入成功");
-                            this.$router.push({ name: "goodsList" });
-                        }
-                    });
-            } else {
-                return false;
-            } */
             this.productList = this.productList.dateTime.toLocaleDateString();
             for (let key in this.productList) {
-                if (this.productList[key]) {
-                    this.$axios
-                        .post("/admin/product/addGoodsList", {
-                            goodsListInfo: {
-                                ID,
-                                name,
-                                list,
-                                price,
-                                dateTime
-                            }
-                        })
-                        .then(res => {
-                            if (res.data === "yes") {
-                                this.$message.success("数据插入成功");
-                                this.$router.push({ name: "goodsList" });
-                            }
-                        });
-                } else {
-                    return false;
-                }
+                if (!this.productList[key]) return false;
             }
+            this.$axios
+                .post("/admin/product/addGoodsList", {
+                    goodsListInfo: {
+                        ID,
+                        name,
+                        list,
+                        price,
+                        dateTime
+                    }
+                })
+                .then(res => {
+                    if (res.data === "yes") {
+                        this.$message.success("数据插入成功");
+                        this.$router.push({ name: "goodsList" });
+                    }
+                });
         },
         /**
          * @Description:  重置所有信息
-         * @Param: 
+         * @Param:
          * @Author: xwq
          * @LastEditors: xwq
          * @LastEditTime: Do not edit
-         * @return: 
+         * @return:
          * @Date: 2019-05-31 09:09:18
          */
         resetForm() {
-            /*  this.productList = {
-                ID: "",
-                name: "",
-                list: "",
-                price: "",
-                dateTime: ""
-            }; */
             for (let key in this.productList) {
                 this.productList[key] = "";
             }

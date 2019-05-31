@@ -35,7 +35,7 @@ export default {
             var name = this.productList.name;
             var _id = this.result._id;
             if (id != "" && name != "") {
-                console.log(id);
+                // console.log(id);
                 this.$axios
                     .get(
                         `/admin/product/editList?id=${_id}&ID=${id}&name=${name}`

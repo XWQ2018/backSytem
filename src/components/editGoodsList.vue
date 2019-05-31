@@ -48,40 +48,29 @@ export default {
     },
     methods: {
         sbmit() {
-            var ID = this.productList.ID;
-            var name = this.productList.name;
-            var list = this.productList.list;
-            var dateTime = this.productList.dateTime;
-            dateTime = dateTime.toLocaleDateString();
-            var price = this.productList.price;
-            var _id = this.goodsListInfo._id;
-            if (
-                ID != "" &&
-                name != "" &&
-                list != "" &&
-                dateTime != "" &&
-                price != ""
-            ) {
-                this.$axios
-                    .post("/admin/product/editGoodsList", {
-                        id: _id,
-                        goodsListInfo: {
-                            ID,
-                            name,
-                            list,
-                            price,
-                            dateTime
-                        }
-                    })
-                    .then(res => {
-                        if (res.data === "yes") {
-                            this.$message.success("数据插入成功");
-                            this.$router.push({ name: "goodsList" });
-                        }
-                    });
-            } else {
-                return false;
+            let _id = this.goodsListInfo._id;
+            let dateTime = this.productList.dateTime;
+            this.productList.dateTime = dateTime.toLocaleDateString();
+            for (let key in this.productList) {
+                if (!this.productList[key]) return false;
             }
+            this.$axios
+                .post("/admin/product/editGoodsList", {
+                    id: _id,
+                    goodsListInfo: {
+                        ID,
+                        name,
+                        list,
+                        price,
+                        dateTime
+                    }
+                })
+                .then(res => {
+                    if (res.data === "yes") {
+                        this.$message.success("数据插入成功");
+                        this.$router.push({ name: "goodsList" });
+                    }
+                });
         },
         //重置
         resetForm() {

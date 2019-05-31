@@ -29,21 +29,17 @@ export default {
     },
     methods: {
         sbmit() {
-            var ID = this.productList.ID;
-            var name = this.productList.name;
-            console.log(ID, name);
-            if (ID != "" && name != "") {
-                this.$axios
-                    .get(`/admin/product/addList?ID= ${ID}&name= ${name}`)
-                    .then(res => {
-                        if (res.data === "yes") {
-                            this.$message.success("数据插入成功");
-                            this.$router.push({ name: "productList" });
-                        }
-                    });
-            } else {
-                return false;
+            for (let key in this.productList) {
+                if (!this.productList[key]) return false;
             }
+            this.$axios
+                .get(`/admin/product/addList?ID= ${ID}&name= ${name}`)
+                .then(res => {
+                    if (res.data === "yes") {
+                        this.$message.success("数据插入成功");
+                        this.$router.push({ name: "productList" });
+                    }
+                });
         },
         resetForm() {
             this.productList = {
