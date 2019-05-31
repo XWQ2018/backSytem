@@ -102,6 +102,15 @@ export default {
                 }
             }
         },
+        /**
+         * @Description:  重置所有信息
+         * @Param: 
+         * @Author: xwq
+         * @LastEditors: xwq
+         * @LastEditTime: Do not edit
+         * @return: 
+         * @Date: 2019-05-31 09:09:18
+         */
         resetForm() {
             /*  this.productList = {
                 ID: "",
