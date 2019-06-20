@@ -91,6 +91,7 @@
     </div>
 </template>
 <script>
+import requestApi from "@/api/requestInfo";
 export default {
     data() {
         return {
@@ -146,16 +147,11 @@ export default {
     },
     methods: {
         resetAll() {
-            this.addUser.username = "";
-            this.addUser.password = "";
-            this.addUser.resetPassword = "";
-            this.addUser.userTel = "";
-            this.addUser.email = "";
-            this.addUser.juse = "";
-            this.addUser.gender = "";
-            this.addUser.nickname = "";
-            this.addUser.imgurl = "";
-            this.addUser.desc = "";
+            for (let k in this.addUser) {
+                if (this.addUser[k] != "dateTime") {
+                    this.addUser[k] = "";
+                }
+            }
         },
         regUsername() {
             if (!/^[a-z][\w\-]{5,19}$/.test(this.addUser.username)) {
@@ -207,27 +203,26 @@ export default {
                     let userInfo = this.addUser;
                     // userInfo.dateTime = new Date();
                     // userInfo.dateTime=userInfo.dateTime.toLocaleDateString();
-                    this.$axios
-                        .post("/admin/user/doUserAdd", {
-                            username: userInfo.username,
-                            password: userInfo.password,
-                            userTel: userInfo.userTel,
-                            email: userInfo.email,
-                            juse: userInfo.juse,
-                            gender: userInfo.gender,
-                            nickname: userInfo.nickname,
-                            imgurl: userInfo.imgurl,
-                            desc: userInfo.desc,
-                            dateTime: userInfo.dateTime.toLocaleDateString()
-                        })
-                        .then(res => {
-                            // console.log(res)
-                            if (res.data === "yes") {
-                                this.resetAll();
-                                this.$router.push({ name: "toUser" });
-                                this.$message.success("数据插入成功");
-                            }
-                        });
+                    let params = {
+                        username: userInfo.username,
+                        password: userInfo.password,
+                        userTel: userInfo.userTel,
+                        email: userInfo.email,
+                        juse: userInfo.juse,
+                        gender: userInfo.gender,
+                        nickname: userInfo.nickname,
+                        imgurl: userInfo.imgurl,
+                        desc: userInfo.desc,
+                        dateTime: userInfo.dateTime.toLocaleDateString()
+                    };
+                    requestApi.addUser(params).then(res => {
+                        // console.log(res)
+                        if (res.data === "yes") {
+                            this.resetAll();
+                            this.$router.push({ name: "toUser" });
+                            this.$message.success("数据插入成功");
+                        }
+                    });
                 } else {
                     return false;
                 }

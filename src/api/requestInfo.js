@@ -45,6 +45,12 @@ export default {
 
     getUserInfo(username) {
         return $service.post("/admin/user/getUserInfo", { username });
+    },
+    /* 
+    添加用户
+     */
+    addUser(params) {
+        return $service.post("/admin/user/doUserAdd", params);
     }
 
 }
