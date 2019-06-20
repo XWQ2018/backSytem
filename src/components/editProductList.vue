@@ -18,6 +18,7 @@
     </div>
 </template>
 <script>
+import { deepCopy } from "@/untils/commonJs";
 export default {
     data() {
         return {
@@ -59,7 +60,8 @@ export default {
     },
     created() {
         this.productList = this.result;
-        this.copy = JSON.parse(JSON.stringify(this.result));
+        // this.copy = JSON.parse(JSON.stringify(this.result));
+        this.copy = deepCopy(this.result);
     }
 };
 </script>

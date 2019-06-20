@@ -46,7 +46,7 @@
                 <el-table-column prop="dateTime" align="center" label="上传时间" sortable width="150"></el-table-column>
                 <el-table-column prop="statu" align="center" label="发布状态" width="150">
                     <template slot-scope="scope">
-                        <el-button type="default" size="small">待发布</el-button>
+                        <el-button type="default" size="small" @click="issue(scope.row)">待发布</el-button>
                     </template>
                 </el-table-column>
                 <el-table-column fixed="right" align="center" label="操作" width="200">
@@ -83,6 +83,7 @@
     </div>
 </template>
 <script>
+import { deepCopy } from "@/untils/commonJs";
 export default {
     data() {
         return {
@@ -203,10 +204,15 @@ export default {
             this.$axios.get("/admin/product/getGoodsList").then(res => {
                 if (res.data) {
                     this.tableData = res.data;
-                    this.copy = JSON.parse(JSON.stringify(res.data));
+                    // this.copy = JSON.parse(JSON.stringify(res.data));
+                    this.copy = deepCopy(res.data);
                     this.loading2 = false;
                 }
             });
+        },
+        //发布点击
+        issue(val) {
+            console.log(val);
         }
     }
 };

@@ -54,6 +54,7 @@
 </template>
 <script>
 import requestApi from "@/api/requestInfo";
+import { deepCopy } from "@/untils/commonJs";
 export default {
     data() {
         return {
@@ -144,7 +145,8 @@ export default {
             requestApi.getUserInfo(this.username).then(res => {
                 let userData = res.data[0];
                 this.form = userData;
-                this.copy = JSON.parse(JSON.stringify(userData));
+                // this.copy = JSON.parse(JSON.stringify(userData));
+                this.copy = deepCopy(userData);
             });
         }
     }

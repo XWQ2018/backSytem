@@ -32,6 +32,7 @@
     </div>
 </template>
 <script>
+import { deepCopy } from "@/untils/commonJs";
 export default {
     data() {
         return {
@@ -86,7 +87,8 @@ export default {
     mounted() {
         this.productList = this.goodsListInfo;
         // let copy = Object.assign({},this.goodsListInfo);//静态方法浅复制
-        this.copy = JSON.parse(JSON.stringify(this.goodsListInfo)); //深复制
+        // this.copy = JSON.parse(JSON.stringify(this.goodsListInfo)); //深复制
+        this.copy = deepCopy(this.goodsListInfo); //深复制
     }
 };
 </script>
