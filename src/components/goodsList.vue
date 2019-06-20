@@ -97,6 +97,10 @@ export default {
             loading2: false
         };
     },
+    created() {
+        this.getProductList();
+    },
+    mounted() {},
     methods: {
         //分页逻辑
         //每页条数
@@ -117,8 +121,6 @@ export default {
         handlePrevClick() {
             this.currentPage = this.currentPage - 1;
             let start = (this.currentPage - 1) * this.pageSize;
-            console.log(this.currentPage);
-            console.log(this.pageSize);
             let result = this.copy.slice(start, this.pageSize);
             this.tableData = result;
         },
@@ -138,6 +140,7 @@ export default {
                     this.tableData = res.data;
                 });
         },
+        //搜索
         btnSearch() {
             let list = this.select;
             this.$axios.get("/admin/product/byList?list=" + list).then(res => {
@@ -169,7 +172,7 @@ export default {
                     .get(`/admin/product/delGoodsList?ID=${ID}`)
                     .then(res => {
                         if (res.data === "yes") {
-                            console.log(666);
+                            // console.log(666);
                         }
                     });
             }
@@ -187,7 +190,7 @@ export default {
             this.$axios
                 .post("/admin/product/removeProductList", { ID: this.Id })
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     if (res.data == "yes") {
                         this.getProductList();
                         this.$message.success("删除成功");
@@ -205,9 +208,6 @@ export default {
                 }
             });
         }
-    },
-    created() {
-        this.getProductList();
     }
 };
 </script>

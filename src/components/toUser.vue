@@ -79,6 +79,7 @@
     </div>
 </template>
 <script>
+import requestApi from "@/api/requestInfo";
 export default {
     data() {
         return {
@@ -97,7 +98,7 @@ export default {
         //获取用户列表
         getUser() {
             this.loading2 = true;
-            this.$axios.post("/admin/user/getuser").then(res => {
+            requestApi.getuser().then(res => {
                 this.tableData = res.data;
                 this.loading2 = false;
             });
@@ -113,16 +114,13 @@ export default {
         //删除多个用户
         removeUser() {
             if (confirm("您确定要删除？")) {
-                let id = this.Id;
-                this.$axios
-                    .post("/admin/user/usersDelete", { ID: id })
-                    .then(res => {
-                        // console.log(res.data)
-                        if (res.data == "yes") {
-                            this.getUser();
-                            this.$message.success("删除成功");
-                        }
-                    });
+                requestApi.usersDelete(this.Id).then(res => {
+                    // console.log(res.data)
+                    if (res.data == "yes") {
+                        this.getUser();
+                        this.$message.success("删除成功");
+                    }
+                });
             }
         },
         //筛选

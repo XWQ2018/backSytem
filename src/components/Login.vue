@@ -20,7 +20,7 @@
             >
                 <el-button slot="prepend" icon="el-icon-edit-outline"></el-button>
             </el-input>
-            <el-button type="primary" plain style="margin-top:20px;width:100%" @click="toHome">登入</el-button>
+            <el-button type="primary" plain style="margin-top:20px;width:100%" @click="backHome">登入</el-button>
         </div>
         <div class="box">
             <el-checkbox v-model="checked">记住密码</el-checkbox>
@@ -29,6 +29,7 @@
     </div>
 </template>
 <script>
+import requestApi from "@/api/requestInfo";
 export default {
     data() {
         return {
@@ -46,33 +47,31 @@ export default {
         document.onkeydown = e => {
             var key = e.which || window.event.keyCode;
             if (key == 13) {
-                this.toHome();
+                this.backHome();
             }
         };
     },
     methods: {
-        toHome() {
-            let name = this.username;
-            this.$axios
-                .post("/admin/login/doLogin", {
-                    username: this.username,
-                    password: this.password
-                })
-                .then(res => {
-                    console.log(res.data);
-                    if (res.data === "yes") {
-                        sessionStorage.setItem("name", name);
-                        this.$router.push({
-                            name: "goodsList",
-                            params: name
-                        }),
-                            this.$message.success("恭喜登入成功");
-                    } else {
-                        this.$message.error("用户名或密码不正确");
-                        this.username = "";
-                        this.password = "";
-                    }
-                });
+        backHome() {
+            let params = {
+                username: this.username,
+                password: this.password
+            };
+            requestApi.doLogin(params).then(res => {
+                // console.log(res.data);
+                if (res.data === "yes") {
+                    sessionStorage.setItem("name", this.username);
+                    this.$router.push({
+                        name: "goodsList",
+                        params: this.username
+                    }),
+                        this.$message.success("登入成功....");
+                } else {
+                    this.$message.error("用户名或密码不正确");
+                    this.username = "";
+                    this.password = "";
+                }
+            });
         }
     }
 };

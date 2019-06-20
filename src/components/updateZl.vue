@@ -53,6 +53,7 @@
     </div>
 </template>
 <script>
+import requestApi from "@/api/requestInfo";
 export default {
     data() {
         return {
@@ -66,70 +67,86 @@ export default {
                 gender: "",
                 desc: ""
             },
-            copy: ""
+            copy: "",
+            username: ""
         };
-    },
-    methods: {
-        handlePreview(val) {
-            console.log(val);
-        },
-        handleRemove(val) {
-            console.log(val);
-        },
-        upSubmit() {
-            let username = sessionStorage.getItem("name");
-            let userInfo = this.form;
-            let nowDate = new Date();
-            let dateTime = nowDate.toLocaleDateString();
-            this.$axios
-                .post("/admin/user/UserEdit", {
-                    username,
-                    Info: {
-                        userTel: userInfo.userTel,
-                        email: userInfo.email,
-                        gender: userInfo.gender,
-                        nickname: userInfo.nickname,
-                        imgurl: userInfo.imgurl,
-                        desc: userInfo.desc,
-                        dateTime: dateTime
-                    }
-                })
-                .then(res => {
-                    if (res.data === "yes") {
-                        this.$message.success("资料修改成功");
-                        this.$router.push({ name: "toUser" });
-                    } else {
-                        this.$message.error("资料修改失败");
-                    }
-                });
-        },
-        reset() {
-            this.form = {
-                username: this.copy.username,
-                juse: this.copy.juse,
-                nickname: this.copy.nickname,
-                imgurl: this.copy.imgurl,
-                userTel: this.copy.userTel,
-                email: this.copy.email,
-                gender: this.copy.gender,
-                desc: this.copy.desc
-            };
-        },
-        getUserInfo() {
-            let username = sessionStorage.getItem("name");
-            this.$axios
-                .post("/admin/user/getUserInfo", {
-                    username: username
-                })
-                .then(res => {
-                    let userData = res.data[0];
-                    this.form = userData;
-                    this.copy = JSON.parse(JSON.stringify(userData));
-                });
-        }
     },
     created() {
         this.getUserInfo();
+        this.username = this.$session.get("name");
+    },
+    mounted() {},
+    methods: {
+        handlePreview(val) {
+            // console.log(val);
+        },
+        handleRemove(val) {
+            // console.log(val);
+        },
+        /**
+         * @Description: 提交修改信息
+         * @Param:
+         * @Author: xwq
+         * @LastEditors: xwq
+         * @LastEditTime: Do not edit
+         * @return:
+         * @Date: 2019-06-20 17:14:57
+         */
+        upSubmit() {
+            let userInfo = this.form;
+            let nowDate = new Date();
+            let dateTime = nowDate.toLocaleDateString();
+            let params = {
+                username: this.username,
+                Info: {
+                    userTel: userInfo.userTel,
+                    email: userInfo.email,
+                    gender: userInfo.gender,
+                    nickname: userInfo.nickname,
+                    imgurl: userInfo.imgurl,
+                    desc: userInfo.desc,
+                    dateTime: dateTime
+                }
+            };
+            requestApi.UserEdit(params).then(res => {
+                if (res.data === "yes") {
+                    this.$message.success("资料修改成功");
+                    this.$router.push({ name: "toUser" });
+                } else {
+                    this.$message.error("资料修改失败");
+                }
+            });
+        },
+        /**
+         * @Description: 重置表单
+         * @Param:
+         * @Author: xwq
+         * @LastEditors: xwq
+         * @LastEditTime: Do not edit
+         * @return:
+         * @Date: 2019-06-20 17:14:44
+         */
+        reset() {
+            for (let k in this.form) {
+                this.form[k] = this.copy[k];
+            }
+        },
+        /**
+         * @Description: 获取用户信息
+         * @Param:
+         * @Author: xwq
+         * @LastEditors: xwq
+         * @LastEditTime: Do not edit
+         * @return:
+         * @Date: 2019-06-20 17:14:31
+         */
+        getUserInfo() {
+            requestApi.getUserInfo(this.username).then(res => {
+                let userData = res.data[0];
+                this.form = userData;
+                this.copy = JSON.parse(JSON.stringify(userData));
+            });
+        }
     }
 };
 </script>

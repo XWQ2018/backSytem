@@ -6,7 +6,8 @@
                 <h1>美美箱后台管理系统</h1>
             </div>
             <div class="right">
-                <p>欢迎:
+                <p>
+                    欢迎:
                     <span>{{name}}</span>登入我们的美美箱后台系统。
                     <span @click="toLogin">退出</span>
                 </p>
@@ -15,18 +16,18 @@
         <main class="homeMain">
             <aside class="asideLeft">
                 <dl>
-                    <dt @click="toGoodsList">商品管理</dt>
-                    <dd @click="toProductList">商品分类</dd>
-                    <dd @click="toGoodsList">商品列表</dd>
+                    <dt @click="listJump(0)">商品管理</dt>
+                    <dd @click="listJump(1)">商品分类</dd>
+                    <dd @click="listJump(2)">商品列表</dd>
                 </dl>
                 <dl>
-                    <dt @click="toUser">用户管理</dt>
-                    <dd @click="toUpdateMm">修改密码</dd>
-                    <dd @click="toUpdateZl">资料修改</dd>
+                    <dt @click="listJump(3)">用户管理</dt>
+                    <dd @click="listJump(4)">修改密码</dd>
+                    <dd @click="listJump(5)">资料修改</dd>
                 </dl>
                 <dl>
                     <dt>交易管理</dt>
-                    <dd @click="toDingDanGl">订单列表</dd>
+                    <dd @click="listJump(6)">订单列表</dd>
                 </dl>
             </aside>
             <div class="asideRight">
@@ -38,30 +39,26 @@
 
 <script>
 export default {
-    name: "HelloWorld",
+    name: "Home",
     data() {
         return {
-            name: sessionStorage.name
+            name: this.$session.get("name"),
+            listInfo: {
+                0: "goodsList",
+                1: "productList",
+                2: "goodsList",
+                3: "toUser",
+                4: "updateMm",
+                5: "UpdateZl",
+                6: "dingdangl"
+            }
         };
     },
+    created() {},
+    mounted() {},
     methods: {
-        toProductList() {
-            this.$router.push({ name: "productList" });
-        },
-        toGoodsList() {
-            this.$router.push({ name: "goodsList" });
-        },
-        toUpdateMm() {
-            this.$router.push({ name: "updateMm" });
-        },
-        toUpdateZl() {
-            this.$router.push({ name: "updateZl" });
-        },
-        toUser() {
-            this.$router.push({ name: "toUser" });
-        },
-        toDingDanGl() {
-            this.$router.push({ name: "dingdangl" });
+        listJump(val) {
+            this.$router.push({ name: this.listInfo[val] });
         },
         toLogin() {
             if (confirm("确定要退出吗？")) {

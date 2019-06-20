@@ -85,7 +85,7 @@
 
 <script>
 export default {
-    name: "HelloWorld",
+    name: "dingdangl",
     data() {
         return {
             name: sessionStorage.name,

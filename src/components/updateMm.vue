@@ -22,6 +22,7 @@
     </div>
 </template>
 <script>
+import requestApi from "@/api/requestInfo";
 export default {
     data() {
         return {
@@ -32,38 +33,75 @@ export default {
             }
         };
     },
+    created() {},
+    mounted() {},
     methods: {
+        /**
+         * @Description: 密码修改确认提交
+         * @Param:
+         * @Author: xwq
+         * @LastEditors: xwq
+         * @LastEditTime: Do not edit
+         * @return:
+         * @Date: 2019-06-20 16:59:02
+         */
         sbmit() {
-            let username = sessionStorage.getItem("name");
-            console.log(this.spasw, this.npasw, this.spasw);
-            if (
-                this.ypasw !== undefined &&
-                this.npasw !== undefined &&
-                this.spasw !== undefined
-            ) {
-                this.$axios
-                    .post("/admin/user/uppasw", {
-                        username,
-                        password: this.uppasw.npasw
-                    })
-                    .then(res => {
-                        if (res.data === "yes") {
-                            this.$message.success("修改密码成功");
-                            this.$router.push({ name: "toUser" });
-                        }
-                    });
-            } else {
-                this.$message.error("内容不能为空");
-                return false;
+            let username = this.$session.get("name");
+            for (let k in this.uppasw) {
+                if (!this.uppasw[k]) {
+                    this.messageInfo(this.uppasw[k]);
+                    return;
+                }
+            }
+
+            let params = {
+                username,
+                password: this.uppasw.npasw
+            };
+            requestApi.uppasw(params).then(res => {
+                if (res.data === "yes") {
+                    this.$message.success("修改密码成功");
+                    this.$router.push({ name: "toUser" });
+                }
+            });
+        },
+        /**
+         * @Description: 重置表单信息
+         * @Param:
+         * @Author: xwq
+         * @LastEditors: xwq
+         * @LastEditTime: Do not edit
+         * @return:
+         * @Date: 2019-06-20 16:59:24
+         */
+        resetForm() {
+            for (let k in this.uppasw) {
+                this.uppasw[k] = "";
             }
         },
-        resetForm() {
-            console.log(this.uppasw.npasw);
-            this.uppasw = {
-                ypasw: "",
-                npasw: "",
-                spasw: ""
-            };
+        /**
+         * @Description: 信息提示
+         * @Param:
+         * @Author: xwq
+         * @LastEditors: xwq
+         * @LastEditTime: Do not edit
+         * @return:
+         * @Date: 2019-06-20 16:59:46
+         */
+        messageInfo(val) {
+            switch (val) {
+                case ypasw:
+                    this.$message.warning("原密码不能为空");
+                    break;
+                case npasw:
+                    this.$message.warning("新密码不能为空");
+                    break;
+                case spasw:
+                    this.$message.warning("确认密码不能为空");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 };
