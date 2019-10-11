@@ -1,10 +1,11 @@
 <template>
     <div id="login" class="container-fluid">
-        <img src="../assets/img/login.jpg" alt="login">
+        <img src="../assets/img/login.jpg" alt="login" />
         <h1>后台管理系统</h1>
         <div style="margin-top: 15px;">
             <el-input
                 placeholder="请输入用户名"
+                maxlength="15"
                 ref="userName"
                 v-model="username"
                 class="input-with-select"
@@ -13,6 +14,7 @@
             </el-input>
             <el-input
                 placeholder="请输入密码"
+                maxlength="18"
                 type="password"
                 v-model="password"
                 style="margin-top:20px"
@@ -58,16 +60,19 @@ export default {
                 password: this.password
             };
             requestApi.doLogin(params).then(res => {
-                // console.log(res.data);
-                if (res.data === "yes") {
+                console.log(res);
+                if (res.code == 20000) {
                     sessionStorage.setItem("name", this.username);
                     this.$router.push({
                         name: "goodsList",
                         params: this.username
                     }),
-                        this.$message.success("登入成功....");
+                        this.$message({
+                            message: "登入成功",
+                            type: "success"
+                        });
                 } else {
-                    this.$message.error("用户名或密码不正确");
+                    this.$message.error("登入失败");
                     this.username = "";
                     this.password = "";
                 }
