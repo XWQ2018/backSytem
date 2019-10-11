@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import axios from 'axios';
 import vueaxios from 'vue-axios';
+import vueWebStorage from 'vue-web-storage';
 Vue.use(axios, vueaxios)
 Vue.prototype.$axios = axios;
 
