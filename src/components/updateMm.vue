@@ -1,3 +1,9 @@
+<!--
+ * @Description: 修改密码
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:38:13
+ -->
 <template>
     <div id="updateMm">
         <h4>修改密码</h4>

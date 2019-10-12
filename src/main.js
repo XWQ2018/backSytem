@@ -17,11 +17,15 @@ import './lib/bootstrap.css';
 
 
 Vue.use(vueWebStorage, {
-    prefix: 'SYCN', // default `app_`
+    prefix: 'BACKSYNC', // default `app_`
     drivers: ['session', 'local'], // 生成Vue.$localStorage以及Vue.$sessionStorage
 });
+
+
 Vue.prototype.$local = Vue.$localStorage; // 原型链加方法
 Vue.prototype.$session = Vue.$sessionStorage;
+
+
 
 Vue.config.productionTip = false
 

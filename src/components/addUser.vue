@@ -1,3 +1,9 @@
+<!--
+ * @Description: 添加用户
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:05:16
+ -->
 <template>
     <div id="addUser">
         <h4>添加用户</h4>

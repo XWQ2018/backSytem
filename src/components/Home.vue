@@ -1,8 +1,14 @@
+<!--
+ * @Description: 首页
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:36:52
+ -->
 <template>
     <div id="Home">
         <header class="head">
             <div class="left">
-                <img src="../assets/img/login.jpg">
+                <img src="../assets/img/login.jpg" />
                 <h1>美美箱后台管理系统</h1>
             </div>
             <div class="right">

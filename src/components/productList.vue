@@ -1,3 +1,9 @@
+<!--
+ * @Description: 商品列表
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:37:32
+ -->
 <template>
     <div id="productList">
         <h4>主页 / 商品管理 / 商品分类</h4>

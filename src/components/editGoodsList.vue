@@ -1,3 +1,9 @@
+<!--
+ * @Description: 编辑商品信息
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:07:18
+ -->
 <template>
     <div id="editGoodsList">
         <h4>编辑商品信息</h4>

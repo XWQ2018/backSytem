@@ -1,3 +1,9 @@
+<!--
+ * @Description: 添加分类
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:05:00
+ -->
 <template>
     <div id="addProductList">
         <h4>添加分类</h4>

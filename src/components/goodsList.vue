@@ -1,3 +1,9 @@
+<!--
+ * @Description: 商品分类
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:36:37
+ -->
 <template>
     <div id="goodsList">
         <div class="top">

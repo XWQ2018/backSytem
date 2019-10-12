@@ -1,3 +1,9 @@
+<!--
+ * @Description: 登入
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:37:02
+ -->
 <template>
     <div id="login" class="container-fluid">
         <img src="../assets/img/login.jpg" alt="login" />

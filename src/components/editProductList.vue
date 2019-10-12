@@ -1,3 +1,9 @@
+<!--
+ * @Description: 编辑分类
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:07:37
+ -->
 <template>
     <div id="editProductList">
         <h4>编辑分类</h4>

@@ -1,3 +1,9 @@
+<!--
+ * @Description: 添加商品信息
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:02:54
+ -->
 <template>
     <div id="addGoodsList">
         <h4>添加商品信息</h4>
@@ -32,6 +38,7 @@
     </div>
 </template>
 <script>
+import requestApi from "@/api/requestInfo";
 export default {
     data() {
         return {

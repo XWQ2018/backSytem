@@ -1,3 +1,9 @@
+<!--
+ * @Description: 商品分类
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:06:53
+ -->
 <template>
     <div id="dingdangl">
         <div class="top">

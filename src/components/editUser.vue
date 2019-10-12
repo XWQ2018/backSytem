@@ -1,3 +1,9 @@
+<!--
+ * @Description: 用户资料编辑
+ * @Author: xwq
+ * @Date: 2019-05-16 10:15:51
+ * @LastEditTime: 2019-10-12 14:07:45
+ -->
 <template>
     <div id="editUser">
         <h4>设置我的资料</h4>
