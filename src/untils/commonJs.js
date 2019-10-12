@@ -62,7 +62,15 @@ export function dateTimeFormate(val, timeFormate) {
         console.log("缺少参数。。。");
     }
 }
-
+/**
+ * @Description: 深复制
+ * @Param: 
+ * @Author: xwq
+ * @LastEditors: xwq
+ * @LastEditTime: Do not edit
+ * @return: 
+ * @Date: 2019-10-12 14:57:11
+ */
 export function deepCopy(val = {}) {
     // val = val ? val : {};
     if (typeof val === 'object' && !(val instanceof Array)) {
