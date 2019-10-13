@@ -2,7 +2,7 @@
  * @Description: 编辑商品信息
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-13 18:48:01
+ * @LastEditTime: 2019-10-13 22:56:27
  -->
 <template>
     <div id="editGoodsList">
@@ -69,14 +69,20 @@ export default {
     methods: {
         sbmit() {
             let _id = this.goodsListInfo._id;
+            let params = {};
             if (this.cahngeStatus) {
                 this.productList.dateTime = this.productList.dateTime.toLocaleDateString();
             }
 
             for (let key in this.productList) {
                 if (!this.productList[key]) return false;
+                if (this.productList[key] != this.copy[key]) {
+                    params[key] = this.productList[key];
+                }
             }
-            productApi.editGoodsList(this.productList).then(res => {
+            params["_id"] = this.productList["_id"];
+            console.log(params);
+            productApi.editGoodsList(params).then(res => {
                 if (res.status == 200) {
                     this.$message.success("数据修改成功");
                     this.$router.push({ name: "goodsList" });

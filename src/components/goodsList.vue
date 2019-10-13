@@ -2,7 +2,7 @@
  * @Description: 商品分类
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-13 18:28:17
+ * @LastEditTime: 2019-10-14 00:01:08
  -->
 <template>
     <div id="goodsList">
@@ -39,6 +39,7 @@
                 element-loading-spinner="el-icon-loading"
                 element-loading-background="rgba(0, 0, 0, 0.8)"
                 :data="tableData"
+                :height="tableHeader"
                 border
                 highlight-current-row
                 @select="getId"
@@ -102,10 +103,17 @@ export default {
             currentPage: 1, //当前页
             copy: "", //数据备份
             pageSize: 10, //每页条数默认10条
-            loading2: false
+            loading2: false,
+            tableHeader: 152
         };
     },
     created() {
+        this.tableHeader =
+            (document.documentElement.clientHeight ||
+                document.body.clientHeight) -
+            118 -
+            120 -
+            75;
         this.getProductList();
     },
     mounted() {},
@@ -165,27 +173,28 @@ export default {
         },
         //删除单个商品信息
         delGoodsList(row) {
+            let ID = row._id;
             this.$confirm("此操作将永久删除该记录, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
             })
                 .then(() => {
-                    let ID = row._id;
-                    this.tableData.map((item, idx) => {
-                        if (item._id == ID) {
-                            this.tableData.splice(idx, 1);
-                            this.$message.success("删除成功");
-                        }
-                    });
                     productApi.delGoodsListById(ID).then(res => {
-                        if (res.data === "yes") {
-                            // console.log(666);
+                        if (res.status == "200") {
+                            this.tableData.map((item, idx) => {
+                                if (item._id == ID) {
+                                    this.tableData.splice(idx, 1);
+                                    this.$message.success("删除成功");
+                                }
+                            });
+                            this.$message({
+                                type: "success",
+                                message: res.msg
+                            });
+                        } else {
+                            this.$message.error(res.msg);
                         }
-                    });
-                    this.$message({
-                        type: "success",
-                        message: "删除成功!"
                     });
                 })
                 .catch(() => {
@@ -205,13 +214,28 @@ export default {
         },
         //删除多个商品列表信息
         removeProductList() {
-            productApi.removeProductList({ ID: this.Id }).then(res => {
-                // console.log(res.data);
-                if (res.data == "yes") {
-                    this.getProductList();
-                    this.$message.success("删除成功");
-                }
-            });
+            this.$confirm("此操作将永久删除该记录, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            })
+                .then(() => {
+                    productApi.removeProductList({ ID: this.Id }).then(res => {
+                        // console.log(res.data);
+                        if (res.status == "200") {
+                            this.$message.success(res.msg);
+                            this.getProductList();
+                        } else {
+                            this.$message.error(res.msg);
+                        }
+                    });
+                })
+                .catch(() => {
+                    this.$message({
+                        type: "info",
+                        message: "已取消删除"
+                    });
+                });
         },
         //获取商品列表信息
         getProductList() {

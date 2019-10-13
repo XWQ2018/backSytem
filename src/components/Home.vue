@@ -2,7 +2,7 @@
  * @Description: 首页
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-13 15:40:10
+ * @LastEditTime: 2019-10-13 23:43:54
  -->
 <template>
     <div id="Home">
@@ -129,7 +129,7 @@ export default {
         display: flex;
         .asideLeft {
             width: 200px;
-            height: 600px;
+            height: calc(100vh - 118px);
             border: 1px solid #999;
             border-top: 0 none;
             text-align: center;
@@ -154,6 +154,8 @@ export default {
         }
         .asideRight {
             flex: 1;
+            height: calc(100vh - 118px);
+            overflow-y: scroll;
             background-color: #fff;
         }
     }

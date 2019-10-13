@@ -30,5 +30,8 @@ export default {
     editGoodsList(data) {
         return $service.post(`/admin/product/editGoodsList`, data);
     },
-
+    /* 添加商品信息 */
+    addGoodsList(data) {
+        return $service.post(`/admin/product/addGoodsList`, data);
+    },
 }

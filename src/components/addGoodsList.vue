@@ -2,7 +2,7 @@
  * @Description: 添加商品信息
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-13 15:49:42
+ * @LastEditTime: 2019-10-13 23:22:01
  -->
 <template>
     <div id="addGoodsList">
@@ -48,31 +48,33 @@ export default {
                 list: "",
                 dateTime: "",
                 price: ""
-            }
+            },
+            cahngeStatus: false
         };
+    },
+    created() {},
+    mounted() {
+        let _this = this;
+        this.$watch("productList.dateTime", () => {
+            _this.cahngeStatus = true;
+        });
     },
     methods: {
         sbmit() {
-            this.productList = this.productList.dateTime.toLocaleDateString();
+            if (this.cahngeStatus) {
+                this.productList.dateTime = this.productList.dateTime.toLocaleDateString();
+            }
             for (let key in this.productList) {
                 if (!this.productList[key]) return false;
             }
-            this.$axios
-                .post("/admin/product/addGoodsList", {
-                    goodsListInfo: {
-                        ID,
-                        name,
-                        list,
-                        price,
-                        dateTime
-                    }
-                })
-                .then(res => {
-                    if (res.data === "yes") {
-                        this.$message.success("数据插入成功");
-                        this.$router.push({ name: "goodsList" });
-                    }
-                });
+            productApi.addGoodsList(this.productList).then(res => {
+                if (res.status == "200") {
+                    this.$message.success(res.msg);
+                    this.$router.push({ name: "goodsList" });
+                } else {
+                    this.$message.error(res.msg);
+                }
+            });
         },
         /**
          * @Description:  重置所有信息
