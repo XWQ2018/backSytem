@@ -14,7 +14,7 @@
             <div class="right">
                 <p>
                     欢迎:
-                    <span>{{name}}</span>登入我们的美美箱后台系统。
+                    <span>{{userName}}</span>登入后台系统。
                     <span @click="toLogin">退出</span>
                 </p>
             </div>
@@ -48,7 +48,7 @@ export default {
     name: "Home",
     data() {
         return {
-            name: this.$session.get("name"),
+            userName: this.$session.get("userName"),
             listInfo: {
                 0: "goodsList",
                 1: "productList",
