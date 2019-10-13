@@ -66,12 +66,11 @@ export default {
                 password: this.password
             };
             requestApi.doLogin(params).then(res => {
-                console.log(res);
-                if (res.code == 20000) {
-                    sessionStorage.setItem("name", this.username);
+                if (res.status == 200) {
+                    console.dir(res);
+                    this.$session.set("userName", res["list"]["username"]);
                     this.$router.push({
-                        name: "goodsList",
-                        params: this.username
+                        path: "goodsList"
                     }),
                         this.$message({
                             message: "登入成功",

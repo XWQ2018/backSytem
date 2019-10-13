@@ -4,22 +4,18 @@ Vue.use(VueRouter);
 
 //引入组件
 import Home from '@/components/Home';
-// import Login from '@/components/Login';
-// import productList from '@/components/productList';
-// import goodsList from '@/components/goodsList';
-// import updateMm from '@/components/updateMm';
-// import updateZl from '@/components/updateZl';
-// import toUser from '@/components/toUser';
-// import addUser from '@/components/addUser';
-// import editUser from '@/components/editUser';
-// import addProductList from '@/components/addProductList';
-// import editProductList from '@/components/editProductList';
-// import addGoodsList from '@/components/addGoodsList';
-// import editGoodsList from '@/components/editGoodsList';
-
-/* 另外按需加载的引入方式 */
-// const Login = () => import("@/components/Login");
-
+import Login from '@/components/Login';
+import productList from '@/components/productList';
+import goodsList from '@/components/goodsList';
+import updateMm from '@/components/updateMm';
+import updateZl from '@/components/updateZl';
+import toUser from '@/components/toUser';
+import addUser from '@/components/addUser';
+import editUser from '@/components/editUser';
+import addProductList from '@/components/addProductList';
+import editProductList from '@/components/editProductList';
+import addGoodsList from '@/components/addGoodsList';
+import editGoodsList from '@/components/editGoodsList';
 
 //配置路由
 const routes = [
@@ -34,9 +30,7 @@ const routes = [
                 name: 'productList',
                 component: resolve => require(['@/components/productList'], resolve),
                 meta: { requiresAuth: true },
-                children: [
 
-                ]
             },
             {
                 path: 'goodsList',
