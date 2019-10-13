@@ -2,7 +2,7 @@
  * @Description: 更新资料
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-12 14:38:20
+ * @LastEditTime: 2019-10-13 15:46:58
  -->
 <template>
     <div id="uplateZl">
@@ -59,7 +59,7 @@
     </div>
 </template>
 <script>
-import requestApi from "@/api/requestInfo";
+import userApi from "@/api/user";
 import { deepCopy } from "@/untils/commonJs";
 export default {
     data() {
@@ -115,7 +115,7 @@ export default {
                     dateTime: dateTime
                 }
             };
-            requestApi.UserEdit(params).then(res => {
+            userApi.UserEdit(params).then(res => {
                 if (res.data === "yes") {
                     this.$message.success("资料修改成功");
                     this.$router.push({ name: "toUser" });
@@ -148,7 +148,7 @@ export default {
          * @Date: 2019-06-20 17:14:31
          */
         getUserInfo() {
-            requestApi.getUserInfo(this.username).then(res => {
+            userApi.getUserInfo(this.username).then(res => {
                 let userData = res.data[0];
                 this.form = userData;
                 // this.copy = JSON.parse(JSON.stringify(userData));

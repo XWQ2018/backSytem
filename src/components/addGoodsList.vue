@@ -2,7 +2,7 @@
  * @Description: 添加商品信息
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-12 14:02:54
+ * @LastEditTime: 2019-10-13 15:49:42
  -->
 <template>
     <div id="addGoodsList">
@@ -38,7 +38,7 @@
     </div>
 </template>
 <script>
-import requestApi from "@/api/requestInfo";
+import productApi from "@/api/product";
 export default {
     data() {
         return {

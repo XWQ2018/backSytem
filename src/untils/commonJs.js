@@ -73,12 +73,10 @@ export function dateTimeFormate(val, timeFormate) {
  */
 export function deepCopy(val = {}) {
     // val = val ? val : {};
-    if (typeof val === 'object' && !(val instanceof Array)) {
-        let result = JSON.parse(JSON.stringify(val));
-        return result;
-    } else {
-        return "传入的参数不是一个Object类型"
-    }
-
-
+    // if (typeof val === 'object' && !(val instanceof Array)) {
+    let result = JSON.parse(JSON.stringify(val));
+    return result;
+    // } else {
+    // return "传入的参数不是一个Object类型"
+    // }
 }

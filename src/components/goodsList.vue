@@ -2,7 +2,7 @@
  * @Description: 商品分类
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-12 14:36:37
+ * @LastEditTime: 2019-10-13 18:28:17
  -->
 <template>
     <div id="goodsList">
@@ -90,6 +90,7 @@
 </template>
 <script>
 import { deepCopy } from "@/untils/commonJs";
+import productApi from "@/api/product";
 export default {
     data() {
         return {
@@ -140,17 +141,14 @@ export default {
         //=======================分页逻辑结束=======================
         //通过关键字获取列表数据
         byNameGetGoodsList() {
-            this.$axios
-                .get("/admin/product/byNameGetGoodsList?name=" + this.wordSpace)
-                .then(res => {
-                    // console.log(res.data)
-                    this.tableData = res.data;
-                });
+            productApi.byNameGetGoodsList(this.wordSpace).then(res => {
+                // console.log(res.data)
+                this.tableData = res.data;
+            });
         },
-        //搜索
+        //根据商品分类搜索
         btnSearch() {
-            let list = this.select;
-            this.$axios.get("/admin/product/byList?list=" + list).then(res => {
+            productApi.byList(this.select).then(res => {
                 this.tableData = res.data;
             });
         },
@@ -162,27 +160,40 @@ export default {
         editGoodsList(row) {
             this.$router.push({
                 name: "editGoodsList",
-                params: { Info: row }
+                query: { Info: row }
             });
         },
         //删除单个商品信息
         delGoodsList(row) {
-            if (confirm("您确定要删除？")) {
-                let ID = row._id;
-                this.tableData.map((item, idx) => {
-                    if (item._id == ID) {
-                        this.tableData.splice(idx, 1);
-                        this.$message.success("删除成功");
-                    }
-                });
-                this.$axios
-                    .get(`/admin/product/delGoodsList?ID=${ID}`)
-                    .then(res => {
+            this.$confirm("此操作将永久删除该记录, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            })
+                .then(() => {
+                    let ID = row._id;
+                    this.tableData.map((item, idx) => {
+                        if (item._id == ID) {
+                            this.tableData.splice(idx, 1);
+                            this.$message.success("删除成功");
+                        }
+                    });
+                    productApi.delGoodsListById(ID).then(res => {
                         if (res.data === "yes") {
                             // console.log(666);
                         }
                     });
-            }
+                    this.$message({
+                        type: "success",
+                        message: "删除成功!"
+                    });
+                })
+                .catch(() => {
+                    this.$message({
+                        type: "info",
+                        message: "已取消删除"
+                    });
+                });
         },
         //勾选获取用户id
         getId(val) {
@@ -194,25 +205,28 @@ export default {
         },
         //删除多个商品列表信息
         removeProductList() {
-            this.$axios
-                .post("/admin/product/removeProductList", { ID: this.Id })
-                .then(res => {
-                    // console.log(res.data);
-                    if (res.data == "yes") {
-                        this.getProductList();
-                        this.$message.success("删除成功");
-                    }
-                });
+            productApi.removeProductList({ ID: this.Id }).then(res => {
+                // console.log(res.data);
+                if (res.data == "yes") {
+                    this.getProductList();
+                    this.$message.success("删除成功");
+                }
+            });
         },
         //获取商品列表信息
         getProductList() {
             this.loading2 = true;
-            this.$axios.get("/admin/product/getGoodsList").then(res => {
-                if (res.data) {
+            productApi.getGoodsList().then(res => {
+                console.dir(res);
+                if (res.status == 200) {
                     this.tableData = res.data;
-                    // this.copy = JSON.parse(JSON.stringify(res.data));
                     this.copy = deepCopy(res.data);
                     this.loading2 = false;
+                } else {
+                    this.$message({
+                        type: "fail",
+                        message: res.msg
+                    });
                 }
             });
         },

@@ -2,7 +2,7 @@
  * @Description: 修改密码
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-12 14:38:13
+ * @LastEditTime: 2019-10-13 15:47:22
  -->
 <template>
     <div id="updateMm">
@@ -28,7 +28,7 @@
     </div>
 </template>
 <script>
-import requestApi from "@/api/requestInfo";
+import userApi from "@/api/user";
 export default {
     data() {
         return {
@@ -64,7 +64,7 @@ export default {
                 username,
                 password: this.uppasw.npasw
             };
-            requestApi.uppasw(params).then(res => {
+            userApi.uppasw(params).then(res => {
                 if (res.data === "yes") {
                     this.$message.success("修改密码成功");
                     this.$router.push({ name: "toUser" });

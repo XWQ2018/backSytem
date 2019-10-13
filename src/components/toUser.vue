@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-12 14:37:44
+ * @LastEditTime: 2019-10-13 15:47:38
  -->
 <template>
     <div id="user">
@@ -85,7 +85,7 @@
     </div>
 </template>
 <script>
-import requestApi from "@/api/requestInfo";
+import userApi from "@/api/user";
 export default {
     data() {
         return {
@@ -104,7 +104,7 @@ export default {
         //获取用户列表
         getUser() {
             this.loading2 = true;
-            requestApi.getuser().then(res => {
+            userApi.getuser().then(res => {
                 this.tableData = res.data;
                 this.loading2 = false;
             });
@@ -120,7 +120,7 @@ export default {
         //删除多个用户
         removeUser() {
             if (confirm("您确定要删除？")) {
-                requestApi.usersDelete(this.Id).then(res => {
+                userApi.usersDelete(this.Id).then(res => {
                     // console.log(res.data)
                     if (res.data == "yes") {
                         this.getUser();

@@ -2,7 +2,7 @@
  * @Description: 编辑商品信息
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-12 14:07:18
+ * @LastEditTime: 2019-10-13 18:48:01
  -->
 <template>
     <div id="editGoodsList">
@@ -39,6 +39,7 @@
 </template>
 <script>
 import { deepCopy } from "@/untils/commonJs";
+import productApi from "@/api/product";
 export default {
     data() {
         return {
@@ -49,35 +50,38 @@ export default {
                 dateTime: "",
                 price: ""
             },
-            goodsListInfo: this.$route.params.Info,
-            copy: ""
+            goodsListInfo: this.$route.query.Info,
+            copy: "",
+            cahngeStatus: false
         };
+    },
+    created() {},
+    mounted() {
+        let _this = this;
+        this.productList = this.goodsListInfo;
+        // let copy = Object.assign({},this.goodsListInfo);//静态方法浅复制
+        // this.copy = JSON.parse(JSON.stringify(this.goodsListInfo)); //深复制
+        this.copy = deepCopy(this.goodsListInfo); //深复制
+        this.$watch("productList.dateTime", () => {
+            _this.cahngeStatus = true;
+        });
     },
     methods: {
         sbmit() {
             let _id = this.goodsListInfo._id;
-            let dateTime = this.productList.dateTime;
-            this.productList.dateTime = dateTime.toLocaleDateString();
+            if (this.cahngeStatus) {
+                this.productList.dateTime = this.productList.dateTime.toLocaleDateString();
+            }
+
             for (let key in this.productList) {
                 if (!this.productList[key]) return false;
             }
-            this.$axios
-                .post("/admin/product/editGoodsList", {
-                    id: _id,
-                    goodsListInfo: {
-                        ID,
-                        name,
-                        list,
-                        price,
-                        dateTime
-                    }
-                })
-                .then(res => {
-                    if (res.data === "yes") {
-                        this.$message.success("数据插入成功");
-                        this.$router.push({ name: "goodsList" });
-                    }
-                });
+            productApi.editGoodsList(this.productList).then(res => {
+                if (res.status == 200) {
+                    this.$message.success("数据修改成功");
+                    this.$router.push({ name: "goodsList" });
+                }
+            });
         },
         //重置
         resetForm() {
@@ -89,12 +93,6 @@ export default {
                 dateTime: this.copy.dateTime
             };
         }
-    },
-    mounted() {
-        this.productList = this.goodsListInfo;
-        // let copy = Object.assign({},this.goodsListInfo);//静态方法浅复制
-        // this.copy = JSON.parse(JSON.stringify(this.goodsListInfo)); //深复制
-        this.copy = deepCopy(this.goodsListInfo); //深复制
     }
 };
 </script>

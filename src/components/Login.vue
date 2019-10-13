@@ -2,7 +2,7 @@
  * @Description: 登入
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-13 15:21:36
+ * @LastEditTime: 2019-10-13 15:47:52
  -->
 <template>
     <div id="login" class="container-fluid">
@@ -37,7 +37,7 @@
     </div>
 </template>
 <script>
-import requestApi from "@/api/requestInfo";
+import userApi from "@/api/user";
 export default {
     name: "Login",
     data() {
@@ -66,7 +66,7 @@ export default {
                 username: this.username,
                 password: this.password
             };
-            requestApi.doLogin(params).then(res => {
+            userApi.doLogin(params).then(res => {
                 if (res.status == 200) {
                     console.dir(res);
                     this.$session.set("userName", res["list"]["username"]);

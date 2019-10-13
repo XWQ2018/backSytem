@@ -2,7 +2,7 @@
  * @Description: 商品列表
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-12 14:37:32
+ * @LastEditTime: 2019-10-13 15:50:26
  -->
 <template>
     <div id="productList">
@@ -42,7 +42,7 @@
     </div>
 </template>
 <script>
-// import requestApi from "@/api/requestInfo";
+import productApi from "@/api/product";
 export default {
     data() {
         return {

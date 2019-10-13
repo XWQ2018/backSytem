@@ -2,7 +2,7 @@
  * @Description: 添加用户
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-12 14:05:16
+ * @LastEditTime: 2019-10-13 15:48:13
  -->
 <template>
     <div id="addUser">
@@ -97,7 +97,7 @@
     </div>
 </template>
 <script>
-import requestApi from "@/api/requestInfo";
+import userApi from "@/api/user";
 export default {
     data() {
         return {
@@ -221,7 +221,7 @@ export default {
                         desc: userInfo.desc,
                         dateTime: userInfo.dateTime.toLocaleDateString()
                     };
-                    requestApi.addUser(params).then(res => {
+                    userApi.addUser(params).then(res => {
                         // console.log(res)
                         if (res.data === "yes") {
                             this.resetAll();
