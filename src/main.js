@@ -2,8 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
 import vueWebStorage from 'vue-web-storage';
+import router from './router'
 //引入Ui框架
 import Elementui from 'element-ui';
 Vue.use(Elementui);
@@ -30,6 +30,25 @@ Vue.prototype.$session = Vue.$sessionStorage;
 
 
 Vue.config.productionTip = false
+
+
+//路由拦截(全局)
+router.beforeEach((to, from, next) => {
+    // console.log(sessionStorage.getItem('token'))
+    if (to.meta.requiresAuth) {
+        const userName = JSON.parse(window.sessionStorage.getItem('BACKSYNCuserName'));
+        if (userName) {
+            next()
+            to.query.userName = userName;
+        } else {
+            next({
+                path: '/login'
+            })
+        }
+    } else {
+        next()
+    }
+})
 
 /* eslint-disable no-new */
 new Vue({

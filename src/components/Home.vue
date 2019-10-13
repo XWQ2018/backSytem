@@ -2,7 +2,7 @@
  * @Description: 首页
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-12 14:36:52
+ * @LastEditTime: 2019-10-13 15:40:10
  -->
 <template>
     <div id="Home">
@@ -14,7 +14,7 @@
             <div class="right">
                 <p>
                     欢迎:
-                    <span>{{userName}}</span>登入后台系统。
+                    <span>{{userName}}</span>登入后台系统
                     <span @click="toLogin">退出</span>
                 </p>
             </div>
@@ -48,7 +48,7 @@ export default {
     name: "Home",
     data() {
         return {
-            userName: this.$session.get("userName"),
+            userName: this.$route.query["userName"],
             listInfo: {
                 0: "goodsList",
                 1: "productList",
@@ -110,7 +110,8 @@ export default {
             font-size: 14px;
             padding: 70px 0 0 0;
             p {
-                margin: 0;
+                margin: 0 10px 0 0;
+                text-shadow: 0 2px 2px #62e4f5;
                 span {
                     font-weight: bold;
                     color: #f00;
@@ -118,6 +119,7 @@ export default {
                 }
                 :last-child {
                     color: #00f;
+                    margin-left: 10px;
                     cursor: pointer;
                 }
             }

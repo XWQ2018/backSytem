@@ -2,7 +2,7 @@
  * @Description: 登入
  * @Author: xwq
  * @Date: 2019-05-16 10:15:51
- * @LastEditTime: 2019-10-12 14:37:02
+ * @LastEditTime: 2019-10-13 15:21:36
  -->
 <template>
     <div id="login" class="container-fluid">
@@ -39,6 +39,7 @@
 <script>
 import requestApi from "@/api/requestInfo";
 export default {
+    name: "Login",
     data() {
         return {
             checked: true,
@@ -70,12 +71,12 @@ export default {
                     console.dir(res);
                     this.$session.set("userName", res["list"]["username"]);
                     this.$router.push({
-                        path: "goodsList"
-                    }),
-                        this.$message({
-                            message: "登入成功",
-                            type: "success"
-                        });
+                        path: "Home/goodsList"
+                    });
+                    this.$message({
+                        message: "登入成功",
+                        type: "success"
+                    });
                 } else {
                     this.$message.error("登入失败");
                     this.username = "";
