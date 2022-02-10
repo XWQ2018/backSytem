@@ -13,7 +13,7 @@
         "axios": "^0.18.0",
         "element-ui": "^2.4.7",
         "mint-ui": "^2.2.13",
-        "node-sass": "^4.12.0",
+        "node-sass": "^7.0.0",
         "postcss-salad": "^2.0.1",
         "qs": "^6.7.0",
         "sass-loader": "^7.1.0",
